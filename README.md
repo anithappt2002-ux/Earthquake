@@ -121,3 +121,166 @@ This project is created for educational purposes.
 
 
 
+# 🌍 Earthquake Project (Program-Based)
+
+## 📌 Overview
+
+This project performs **Earthquake Data Analysis using Python**. It focuses on cleaning, analyzing, and visualizing earthquake data to identify patterns in magnitude, depth, and occurrence over time.
+
+---
+
+## 🎯 Objectives
+
+* Load and preprocess earthquake dataset
+* Perform exploratory data analysis (EDA)
+* Visualize trends using graphs
+* Understand relationships between variables
+* (Optional) Store data in MySQL
+
+---
+
+## 🛠️ Technologies
+
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* SQLAlchemy (MySQL integration)
+
+---
+
+## ⚙️ Program Explanation
+
+### 🔹 Step 1: Import Libraries
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+---
+
+### 🔹 Step 2: Load Dataset
+
+```python
+df = pd.read_csv("earthquake.csv")
+df.head()
+```
+
+👉 Loads the dataset into a DataFrame
+
+---
+
+### 🔹 Step 3: Data Preprocessing
+
+```python
+df.dropna(inplace=True)
+df['date'] = pd.to_datetime(df['date'])
+df = df[df['mag'] > 0]
+```
+
+👉 Removes null values and cleans invalid data
+
+---
+
+### 🔹 Step 4: Feature Engineering
+
+```python
+df['year'] = df['date'].dt.year
+```
+
+👉 Extracts year for trend analysis
+
+---
+
+### 🔹 Step 5: Year-wise Analysis
+
+```python
+yearly = df['year'].value_counts().sort_index()
+yearly.plot()
+plt.title("Earthquake Trend")
+plt.show()
+```
+
+👉 Shows how earthquakes change over time
+
+---
+
+### 🔹 Step 6: Magnitude Distribution
+
+```python
+sns.histplot(df['mag'], bins=30)
+plt.title("Magnitude Distribution")
+plt.show()
+```
+
+👉 Displays frequency of earthquake magnitudes
+
+---
+
+### 🔹 Step 7: Depth vs Magnitude
+
+```python
+plt.scatter(df['depth_km'], df['mag'])
+plt.xlabel("Depth")
+plt.ylabel("Magnitude")
+plt.show()
+```
+
+👉 Shows relationship between depth and intensity
+
+---
+
+### 🔹 Step 8: Database Storage (Optional)
+
+```python
+from sqlalchemy import create_engine
+engine = create_engine("mysql+pymysql://root:password@localhost/earthquake_project")
+df.to_sql("earthquakes", con=engine, if_exists="replace", index=False)
+```
+
+---
+
+## 📊 Output
+
+* Line Graph → Earthquake trend
+* Histogram → Magnitude distribution
+* Scatter Plot → Depth vs Magnitude
+
+---
+
+## 🔍 Key Insights
+
+* Earthquakes occur frequently in specific regions
+* Large earthquakes are rare
+* Increase in data over time due to better technology
+* Depth affects earthquake impact
+
+---
+
+## 🚀 How to Run
+
+```bash
+pip install pandas numpy matplotlib seaborn sqlalchemy pymysql
+jupyter notebook
+```
+
+---
+
+## 🔮 Future Scope
+
+* Machine learning prediction
+* Real-time dashboard
+* Alert systems
+
+---
+
+## 📜 License
+
+Educational use only
+
+
+
